@@ -12,11 +12,12 @@ function init() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  widthSquares = Math.round(canvas.width / countSquares);
+  widthSquares = Math.floor(canvas.width / countSquares);
+  const actualCount = Math.ceil(canvas.width / widthSquares);
 
   raiseSquares = [];
 
-  for (let i = 0; i < countSquares; i++) {
+  for (let i = 0; i < actualCount; i++) {
     raiseSquares.push(
       new RaiseSquare(
         i * widthSquares,
@@ -38,7 +39,7 @@ function getColor(currentHeight) {
 
   const saturation = 100;
 
-  const lightness = 50;
+  const lightness = 30;
 
   return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
