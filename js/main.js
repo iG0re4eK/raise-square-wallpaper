@@ -3,7 +3,7 @@ import RaiseSquare from "./RaiseSquare.js";
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 
-const countSquares = 100;
+const countSquares = 1000;
 
 let widthSquares;
 let raiseSquares = [];
@@ -12,7 +12,7 @@ function init() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  widthSquares = canvas.width / countSquares;
+  widthSquares = Math.round(canvas.width / countSquares);
 
   raiseSquares = [];
 
