@@ -3,12 +3,21 @@ import RaiseSquare from "./RaiseSquare.js";
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 
-const countSquares = 1000;
+const FPS = 120;
+const frameInterval = 1000 / FPS;
+const countSquares = 30;
 
 let widthSquares;
 let raiseSquares = [];
+let lastFrame = 0;
+let animationId = null;
 
 function init() {
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
+  }
+
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
@@ -30,7 +39,8 @@ function init() {
     );
   }
 
-  draw();
+  lastFrame = performance.now();
+  animate();
 }
 
 function getColor(currentHeight) {
@@ -44,14 +54,26 @@ function getColor(currentHeight) {
   return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 
+function animate(timeStamp) {
+  animationId = requestAnimationFrame(animate);
+
+  const deltaTime = timeStamp - lastFrame;
+
+  if (deltaTime > 0) {
+    draw();
+  }
+
+  if (deltaTime >= frameInterval) {
+    lastFrame = timeStamp;
+  }
+}
+
 function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height);
 
   raiseSquares.forEach((square) => {
     square.draw();
   });
-
-  requestAnimationFrame(draw);
 }
 
 window.addEventListener("mousemove", (e) => {

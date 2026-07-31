@@ -17,6 +17,4 @@ export default class RaiseSquare {
       this.height,
     );
   }
-
-  update() {}
 }
